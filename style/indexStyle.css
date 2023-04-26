@@ -1,0 +1,48 @@
+body
+{
+	background-color: #96D202;
+}
+
+@font-face 
+{
+    font-family: "AppleII";
+    src: url("../Fonts/AppleII.ttf");
+}
+
+#CenterImage
+{
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	height : 50em;
+	flex-direction: column;
+}
+
+img 
+{
+	padding : 50px;
+	width : 586px;
+	height : 398px;
+}
+/*#image:hover
+{
+	width : 616px;
+	height : 436px;
+}*/
+
+h1
+{
+	width: 17em;
+	height: 4em;
+	font-family: 'AppleII', monospace;
+	padding-top: 12px;
+	border : black 3px dashed;
+	text-align: center;
+}
+
+h1:hover
+{
+	font-size: 35px;
+	background-color: #6EC407;
+}
+
