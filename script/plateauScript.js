@@ -11,6 +11,13 @@ lastBlockBodySnakePosition = //sert pour enlever la derniere case du snake pour 
 	y : 2
 }
 
+foodPosition = 
+{
+	x : 0,
+	y : 0,
+	isOnField : false
+}
+
 var snakeSize = 3; //sans la tete 
 
 let plateau = [
@@ -82,11 +89,22 @@ function init()
 	setInterval(play, 400);
 }
 
+var count = 1;
 function play()
 {
 	initPosition();
 	dessinePlateau();
 	deplaceSnake();
+	if(foodPosition.isOnField === false)
+	{
+		count += 1;
+	}
+	
+	if(count === 10)
+	{
+		spawnFood();
+		count =0;
+	}
 }
 
 let lastDirection = "right";
@@ -182,4 +200,19 @@ function deleteLastBlockBody()//fonction censé trouver dernier bloc serpent et 
 	plateau[lastBlockBodySnakePosition.x][lastBlockBodySnakePosition.y] = 0;
 	//alert(lastBlockBodySnakePosition.x);
 	//alert(lastBlockBodySnakePosition.y);
+}
+
+function spawnFood()
+{
+	if(foodPosition.isOnField === false)
+	{
+		let randomX = Math.floor(Math.random() * 25)+1;
+		let randomY = Math.floor(Math.random() * 19)+1;
+		foodPosition.x = randomX;
+		foodPosition.y = randomY;
+		plateau[foodPosition.x][foodPosition.y] = 5; //5 c'est le png du fruit
+
+		foodPosition.isOnField = true;
+	}
+
 }
