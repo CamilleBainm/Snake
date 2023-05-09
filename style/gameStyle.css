@@ -27,7 +27,10 @@ body
 {
 	background-color: green;
 }
-
+.food
+{
+	background-color: red;
+}
 .brique
 {
 	background-image: url("../img/brique.jpeg");
