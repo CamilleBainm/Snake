@@ -1,4 +1,4 @@
-headPosition = 
+/*headPosition = 
 {
 	x : 12,
 	y : 5,
@@ -10,7 +10,7 @@ lastBlockBodySnakePosition = //sert pour enlever la derniere case du snake pour 
 	x : 12,
 	y : 2
 }
-
+*/
 foodPosition = 
 {
 	x : 0,
@@ -18,14 +18,16 @@ foodPosition =
 	isOnField : false
 }
 
-var snakeSize = 3; //sans la tete 
+let snakeList = [{x : 12, y : 5, direction : " "}];
+
+//var snakeSize = 3; //sans la tete 
 
 let plateau = [
 	[3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
 	[3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3],
-	[3,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,3],
-	[3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,3],
-	[3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,3],
+	[3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3],
+	[3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3],
+	[3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3],
 	[3,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,3],
 	[3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3],
 	[3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3],
@@ -53,8 +55,10 @@ function initPosition()
 		{
 			if(plateau[i][j] === 2)
 			{
-				headPosition.x = i;
-				headPosition.y = j; 
+				/*headPosition.x = i;
+				headPosition.y = j;*/
+				snakeList[0].x = i;
+				snakeList[0].y = j; 
 			}
 		}
 	}
@@ -65,16 +69,16 @@ function changeDirectionSnake(event)
 	switch(event.code)
 	{
 		case "ArrowUp" :
-			headPosition.direction = "left";
+			snakeList[0].direction = "up";
 			break;
 		case "ArrowDown":
-			headPosition.direction = "right";
+			snakeList[0].direction = "down";
 			break;
 		case "ArrowLeft":
-			headPosition.direction = "up";
+			snakeList[0].direction = "left";
 			break;
 		case "ArrowRight":
-			headPosition.direction = "down";
+			snakeList[0].direction = "right";
 			break;
 
 	}
@@ -107,48 +111,67 @@ function play()
 	}
 }
 
-let lastDirection = "right";
+//let lastDirection = "right";
 
 function deplaceSnake() 
 {
-	let newX = headPosition.x;
-	let newY = headPosition.y;
+	//let newX = headPosition.x;
+	//let newY = headPosition.y;
+	for(let i = 0; i < snakeList.length; i++){
+		let newX = snakeList[0].x;
+		let newY = snakeList[0].y; 
 
-		if(headPosition.direction === "up")
+			if(snakeList[i].direction === "up")
+			{
+				newX = newX - 1;
+			}
+			if(snakeList[i].direction === "down")
+			{
+				newX = newX + 1;
+				//console.log(lastBlockBodySnakePosition.x,lastBlockBodySnakePosition.y);
+			}	
+			if(snakeList[i].direction === "left")
+			{
+				newY = newY - 1;
+			}
+			if(snakeList[i].direction === "right")
+			{
+				newY = newY + 1;
+			}
+	}
+
+
+		if(plateau[newX][newY] !== 3 && plateau[newX][newY] !== 1 && plateau[newX][newY] !== 5)
 		{
-			newY = newY - 1;
+			plateau[snakeList[0].x][snakeList[0].y] = 0;
+			snakeList[0].x = newX;
+			snakeList[0].y = newY;
+			
+			plateau[snakeList[0].x][snakeList[0].y] = 2;
+		}else if(plateau[newX][newY] == 5)
+		{
+			snakeList.push({x: snakeList[0].x, y: snakeList[0].y, direction: snakeList[0].direction});
+			plateau[snakeList[1].x][snakeList[1].y]  = 1;
+			console.log(snakeList[1]);
 		}
-		if(headPosition.direction === "down")
-		{
-			newY = newY + 1;
-			console.log(lastBlockBodySnakePosition.x,lastBlockBodySnakePosition.y);
-		}	
-		if(headPosition.direction === "left")
-		{
-			newX = newX - 1;
-		}
-		if(headPosition.direction === "right")
-		{
-			newX = newX + 1;
-		}
 
 
-
+/*
 	if(plateau[newX][newY] !== 3 && plateau[newX][newY] !== 1)//si tete du snake ne touche pas mur ou son corps
 	{
-		plateau[headPosition.x][headPosition.y] = 1;
-		headPosition.x = newX;
-		headPosition.y = newY;
-		plateau[headPosition.x][headPosition.y] = 2; //head
+		plateau[snakeList[0].x][snakeList[0].y] = 1;
+		snakeList[0].x = newX;
+		snakeList[0].y = newY;
+		plateau[snakeList[0].x][snakeList[0].y] = 2; //head
 
-		delteLastBlockBody();//fonction a finir 
+		//delteLastBlockBody();//fonction a finir 
 	}
 	else //sinon game over 
 	{
 		alert("Game over");
 		clearInterval();
 	}
-
+*/
 }
 
 function dessinePlateau()
@@ -177,6 +200,8 @@ function dessinePlateau()
 					break;
 				case 4 : 
 					monTd.setAttribute("class", "snakeQueue");
+				case 5 : 
+					monTd.setAttribute("class", "food");
 			}
 			monTr.appendChild(monTd);
 		}
@@ -184,7 +209,7 @@ function dessinePlateau()
 	}
 }
 
-function deleteLastBlockBody()//fonction censé trouver dernier bloc serpent et le supprimer mais je n'ai pas trouvé le moyen de le faire
+/*function deleteLastBlockBody()//fonction censé trouver dernier bloc serpent et le supprimer mais je n'ai pas trouvé le moyen de le faire
 {
 	for(let i = 0; i < 26; i++)
 	{
@@ -201,8 +226,9 @@ function deleteLastBlockBody()//fonction censé trouver dernier bloc serpent et 
 	//alert(lastBlockBodySnakePosition.x);
 	//alert(lastBlockBodySnakePosition.y);
 }
+*/
 
-function spawnFood()
+function spawnFood()// ne pas spawn n'importe ou
 {
 	if(foodPosition.isOnField === false)
 	{
