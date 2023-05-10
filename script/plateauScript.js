@@ -186,20 +186,7 @@ function dessinePlateau()
 
 function deleteLastBlockBody()//fonction censé trouver dernier bloc serpent et le supprimer mais je n'ai pas trouvé le moyen de le faire
 {
-	for(let i = 0; i < 26; i++)
-	{
-		for(let j = 0; j < 21; j++)
-		{
-			if(plateau[j][i] === 4) //verifie si l'element a la class qui correspond a la queue
-			{
-				lastBlockBodySnakePosition.x = i;
-				lastBlockBodySnakePosition.y = j;
-			}
-		}
-	}
-	plateau[lastBlockBodySnakePosition.x][lastBlockBodySnakePosition.y] = 0;
-	//alert(lastBlockBodySnakePosition.x);
-	//alert(lastBlockBodySnakePosition.y);
+
 }
 
 function spawnFood()
