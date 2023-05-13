@@ -13,38 +13,68 @@ body
 {
 	background-color: black;
 }
+
+.snakeLogo
+{
+	width: 150px;
+	height:50px;
+}
 .snake
 {
-	background-color: green;
+	background-image: url("../img/quircleBody.png");
 }
 
 .snakeHead
 {
-	background-color: #51F200;
+	background-image: url("../img/quircleTete.png");
 }
 
 .snakeQueue
 {
 	background-color: green;
 }
-.food
+.pomme
 {
-	background-color: red;
+	background-image:url("../img/apple.png");
 }
+
+.poire
+{
+	background-image: url("../img/poire.jpg");
+}
+
+.pasteque
+{
+	background-image: url("../img/pasteque.jpg");
+}
+
+.banane
+{
+	background-image: url("../img/banane.jpg");
+}
+
 .brique
 {
-	background-image: url("../img/brique.jpeg");
+	background-color : green;
+}
+
+#restart:hover
+{
+	width: 120px;
 }
 
 table
 {
 	background-color: black;
+	border: #51F200 10px solid;
 }
 
 td
 {
 	width: 25px;
 	height: 25px;
+	background-repeat: no-repeat;
+	background-size: contain;
 }
 
 .ContainerTable
@@ -72,6 +102,7 @@ h2
 
 div .title
 {
+
 	/*width: 37.5em;*/
 	width: 31.7%;
 	height: 0.5em;
