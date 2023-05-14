@@ -1,10 +1,10 @@
-let snakeList = [{x: 1, y: 1, direction: "right"}];
+let snakeList = [{x: 1, y: 1, direction: "right"}];//cree une liste qui va contenir toutes les positions du serpent
 
 foodPosition = 
 {
 	x : 0,
 	y : 0,
-	isOnField : false
+	isOnField : false //au debut il n'y a pas de fruits en jeu 
 }
 
 
@@ -35,17 +35,19 @@ let plateau = [
 	];
 
 
-	function init(){
-		dessinePlateau();
-		window.addEventListener("keydown", changeDirectionSnake);
-		setInterval(play, 200);
+	function init() //appelé au chargement de la page
+	{
+		dessinePlateau(); //creer le plateau et attribue des class aux diffrentes cases du plateau
+		window.addEventListener("keydown", changeDirectionSnake); //donne un attribue aux touches directionnelles 
+		setInterval(play, 200); //plateau se met a jour toutes les 200ms
 	}
 
 
-	function play(){
+	function play()
+	{
 		dessinePlateau();
-		moveSnake();
-		spawnFood();
+		moveSnake();//met a jour les nouvelles positions du serpent + gere la fin de partie 
+		spawnFood();// fait spawn aléatoirement fruits si il n'y en a pas deja sur le plateau 
 	}
 
 
@@ -88,10 +90,12 @@ let plateau = [
 		for (let i = 0; i < plateau.length; i++) {
 			let monTr = document.createElement("tr"); // Crée une nouvelle ligne dans le tableau HTML
 	
-			for (let j = 0; j < plateau[i].length; j++) {
+			for (let j = 0; j < plateau[i].length; j++) 
+			{
 				let monTd = document.createElement("td"); // Crée une nouvelle cellule dans la ligne
 	
-				switch (plateau[i][j]) {
+				switch (plateau[i][j]) //attribue une image de fond a la case courante en fonction de la valeur donnée a cette case du tableau
+				{
 				case 0 : 
 					monTd.setAttribute("class", "background");
 					break;
@@ -126,26 +130,31 @@ let plateau = [
 	
 			plateauHTML.appendChild(monTr); // Ajoute la ligne au plateau de jeu
 		}
-		 // Mettre à jour les classes pour représenter la tête et le corps du serpent
-		 for (let i = 0; i < snakeList.length; i++) {
+		 
+		for (let i = 0; i < snakeList.length; i++) // Mettre à jour les classes pour représenter la tête et le corps du serpent
+		{
 			let snakePart = snakeList[i];
-			if (i === 0) {
-			  let cell = plateauHTML.rows[snakePart.x].cells[snakePart.y];
-			  cell.setAttribute("class", "snakeHead");
-			} else {
-			  let cell = plateauHTML.rows[snakePart.x].cells[snakePart.y];
-			  cell.setAttribute("class", "snake");
+			if (i === 0) //si c'est la tete du serpent
+			{
+				let cell = plateauHTML.rows[snakePart.x].cells[snakePart.y];
+				cell.setAttribute("class", "snakeHead"); 
+			} 
+			else 
+			{
+				let cell = plateauHTML.rows[snakePart.x].cells[snakePart.y];
+				cell.setAttribute("class", "snake");
 			}
-		  }
+		}
 	}
 	
 
 
 
 
-let snakeSize = 1;
+let snakeSize = 1; //pour le compteur
 
-	function moveSnake() {
+	function moveSnake() 
+	{
 		// Obtenir la direction actuelle de la tête du serpent
 		let direction = snakeList[0].direction;
 	
@@ -171,31 +180,28 @@ let snakeSize = 1;
 	
 		// Vérifier les collisions avec les murs, le corps du serpent ou les obstacles
 		if (
-			newHead.x < 0 ||
-			newHead.x >= plateau.length ||
-			newHead.y < 0 ||
-			newHead.y >= plateau[0].length ||
-			plateau[newHead.x][newHead.y] === 3 ||
-			plateau[newHead.x][newHead.y] === 2
+			plateau[newHead.x][newHead.y] === 3 || //collision avec mur
+			plateau[newHead.x][newHead.y] === 2 //collision avec son corps
 		) 
 		{
 			gameover("file:///C:/Users/bainm/Documents/GitHub/Snake/img/gameover.jpg");
-			return; // La nouvelle position n'est pas valide, terminer la fonction
+			return; //fin du jeu 
 		}
 	
 		// Déplacer le serpent
-		snakeList.unshift({ x: newHead.x, y: newHead.y, direction: direction });
+		snakeList.unshift({ x: newHead.x, y: newHead.y, direction: direction });//ajoute un nouvel element au debut de la liste -> nouvelle tete 
 	
-		if (newHead.x !== foodPosition.x || newHead.y !== foodPosition.y) 
+		if (newHead.x !== foodPosition.x || newHead.y !== foodPosition.y)//si on ne tombe pas sur un fruit
 		{
-			let tail = snakeList.pop();
-			plateau[tail.x][tail.y] = 0;
+			let tail = snakeList.pop(); //stock le dernier element de la liste -> queue 
+			plateau[tail.x][tail.y] = 0;//puis le supprime
 		} 
-		else 
+		else //si on tombe sur un fruit -> le programme ne va pas supprimer la derniere case de snakeList ce qui va augmenter de 1 la taille du serpent
 		{
+			//pour le compteur
 			snakeSize++;
 			document.getElementById("Size").innerHTML = "Snake Size :" + snakeSize;
-			foodPosition.isOnField = false;
+			foodPosition.isOnField = false; //il n'y a plus de fruit sur le plateau, il faut donc en refaire apparaitre un
 		}
 	
 		// Mettre à jour l'affichage du serpent sur le plateau
@@ -223,10 +229,14 @@ let snakeSize = 1;
 		}
 	}
 
-function gameover(src) {
-  // Créer un nouvel élément <img>
+function gameover(src) 
+{
+
 	window.removeEventListener("keydown", changeDirectionSnake);//empeche de bouger le serpent
+
 	spawnFood = function(){}//empecher le spawn de food
+
+	// Créer un nouvel élément <img>
 	var img = document.createElement("img");
 
   // Définir la source de l'image
@@ -237,7 +247,7 @@ function gameover(src) {
 	img.style.top = "50%";
 	img.style.left = "50%";
 	img.style.transform = "translate(-50%, -50%)";
-	//img.style.border = "5px solid #51F200";
+	img.style.border = "5px solid #51F200";
 
   // Ajouter l'élément <img> au corps de la page
 	document.body.appendChild(img);
@@ -265,21 +275,20 @@ function gameover(src) {
 
 		img.addEventListener("click", function()
 		{
-			location.reload();
+			location.reload();//recharge la page pour restart le jeu
 		})
 
-		document.body.appendChild(img);
+		document.body.appendChild(img);//ajoute l'image au corps de la page
 
-		//button.setAttribute("id","restart");
-	}, 2000)
+	}, 2000)//boutton apparait au bout de 2sec
 }
 	
 
-let typeFood = 8;
+let typeFood = 5;//on commence par une pomme
 
 function spawnFood() 
 {
-	if(foodPosition.isOnField === false)
+	if(foodPosition.isOnField === false)//si il n'y a plus de fruits sur le plateau
 	{
 		let randomX = Math.floor(Math.random() * 25)+1;
 		let randomY = Math.floor(Math.random() * 19)+1;
@@ -292,17 +301,16 @@ function spawnFood()
 
 		foodPosition.x = randomX;
 		foodPosition.y = randomY;
-		if(typeFood === 9)
+
+		if(typeFood === 9)//quand on a fait les 4 fruits differents on revient a la pomme
 		{
 			typeFood = 5;
 		}
-		plateau[foodPosition.x][foodPosition.y] = typeFood; //5 c'est le png du fruit
+		plateau[foodPosition.x][foodPosition.y] = typeFood;
 
-		foodPosition.isOnField = true;
+		foodPosition.isOnField = true;//il y a un fruit sur le plateau
 
 		typeFood = typeFood + 1;
 	}
 
 }
-
-
