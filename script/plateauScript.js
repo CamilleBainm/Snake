@@ -255,7 +255,7 @@ function gameover()
 	setTimeout(function()
 	{
 		var button = document.createElement("img");
-		img.src = "../img/start.png";
+		img.src = "./img/start.png";
 
 		img.style.position = "fixed";
 		img.style.width ="100px";
