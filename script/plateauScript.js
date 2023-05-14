@@ -39,14 +39,13 @@ let plateau = [
 	{
 		dessinePlateau(); //creer le plateau et attribue des class aux diffrentes cases du plateau
 		window.addEventListener("keydown", changeDirectionSnake); //donne un attribue aux touches directionnelles
-		let vitesse = 300;
-		setInterval(play, vitesse); //plateau se met a jour toutes les 200ms
+		setInterval(play, 200); //plateau se met a jour toutes les 200ms
 	}
 
 
 	function play()
 	{
-		vitesse = vitesse -(snakeSize *2);
+		
 		dessinePlateau();
 		moveSnake();//met a jour les nouvelles positions du serpent + gere la fin de partie 
 		spawnFood();// fait spawn aléatoirement fruits si il n'y en a pas deja sur le plateau 
