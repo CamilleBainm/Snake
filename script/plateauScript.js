@@ -38,8 +38,10 @@ let plateau = [
 	function init() //appelé au chargement de la page
 	{
 		dessinePlateau(); //creer le plateau et attribue des class aux diffrentes cases du plateau
-		window.addEventListener("keydown", changeDirectionSnake); //donne un attribue aux touches directionnelles 
-		setInterval(play, 200); //plateau se met a jour toutes les 200ms
+		window.addEventListener("keydown", changeDirectionSnake); //donne un attribue aux touches directionnelles
+		let vitesse = 300;
+		vitesse = vitesse - (snakeSize * 10);
+		setInterval(play, vitesse); //plateau se met a jour toutes les 200ms
 	}
 
 
