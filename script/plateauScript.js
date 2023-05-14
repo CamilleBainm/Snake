@@ -240,7 +240,7 @@ function gameover()
 	var img = document.createElement("img");
 
   // Définir la source de l'image
-	img.src = "file:///C:/Users/bainm/Documents/GitHub/Snake/img/gameover.jpg";
+	img.src = "../img/gameover.jpg";
 
   // Définir les styles CSS pour positionner l'image au centre de l'écran
 	img.style.position = "fixed";
@@ -255,7 +255,7 @@ function gameover()
 	setTimeout(function()
 	{
 		var button = document.createElement("img");
-		img.src = "file:///C:/Users/bainm/Documents/GitHub/Snake/img/start.png";
+		img.src = "../img/start.png";
 
 		img.style.position = "fixed";
 		img.style.width ="100px";
