@@ -240,7 +240,7 @@ function gameover()
 	var img = document.createElement("img");
 
   // Définir la source de l'image
-	img.src = "../img/gameover.jpg";
+	img.src = "./img/gameover.jpg";
 
   // Définir les styles CSS pour positionner l'image au centre de l'écran
 	img.style.position = "fixed";
