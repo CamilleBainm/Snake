@@ -184,7 +184,7 @@ let snakeSize = 1; //pour le compteur
 			plateau[newHead.x][newHead.y] === 2 //collision avec son corps
 		) 
 		{
-			gameover("file:///C:/Users/bainm/Documents/GitHub/Snake/img/gameover.jpg");
+			gameover();
 			return; //fin du jeu 
 		}
 	
@@ -229,7 +229,7 @@ let snakeSize = 1; //pour le compteur
 		}
 	}
 
-function gameover(src) 
+function gameover() 
 {
 
 	window.removeEventListener("keydown", changeDirectionSnake);//empeche de bouger le serpent
@@ -240,7 +240,7 @@ function gameover(src)
 	var img = document.createElement("img");
 
   // Définir la source de l'image
-	img.src = src;
+	img.src = "file:///C:/Users/bainm/Documents/GitHub/Snake/img/gameover.jpg";
 
   // Définir les styles CSS pour positionner l'image au centre de l'écran
 	img.style.position = "fixed";
